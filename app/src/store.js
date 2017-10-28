@@ -48,7 +48,7 @@ export const store = new Vuex.Store({
 
     lastname (state) {
       return state.user ? state.user.lastname : null
-    },
+    }
   },
 
   mutations: {
