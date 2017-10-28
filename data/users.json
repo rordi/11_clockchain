@@ -1,0 +1,12 @@
+[
+    "maxGartenhag": {
+        "firstName": "Max",
+        "lastName": "Gartenhag",
+        "privateKey": "...."
+    },
+    "lauraSteuererklaerung": {
+        "firstName": "Laura",
+        "lastName": "Steuererklärung",
+        "privateKey": "..."
+    }
+]
