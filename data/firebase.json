@@ -1,0 +1,48 @@
+{
+  "users": {
+    "supplier": {
+      "id": 1,
+      "firstname": "Max",
+      "lastname": "Frisch",
+      "email": "supplier@test.ch",
+      "etherbase": "123abc"
+    },
+    "consumer": {
+      "id": 2,
+      "firstname": "Wilhelm",
+      "lastname": "Busch",
+      "email": "consumer@test.ch",
+      "etherbase": "456def"
+    }
+  },
+  "appState": {
+    "contract": "123456abcdef",
+    "missions": {
+      "open": [
+        {
+          "id": 1,
+          "supplierId": 1,
+          "consumerId": null,
+          "description": "Gartenarbeit",
+          "estimated": "2:00"
+        },
+        {
+          "id": 2,
+          "supplierId": 2,
+          "consumerId": null,
+          "description": "Kochen",
+          "estimated": "1:30"
+        }
+      ],
+      "past": [
+        {
+          "id": 1,
+          "supplierId": 2,
+          "consumerId": 1,
+          "description": "Gartenarbeit",
+          "estimated": "2:00"
+        }
+      ]
+    }
+  }
+}

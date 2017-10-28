@@ -1,7 +1,7 @@
 // State management implementing the Flux pattern and using Vuex
 import Vue from 'vue'
-import Vuex from 'vuex'
 import router from './router'
+import Vuex from 'vuex'
 // import Service from 'api/Service'
 import Service from './api/Mock'
 
