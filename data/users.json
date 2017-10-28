@@ -2,11 +2,13 @@
     "maxGartenhag": {
         "firstName": "Max",
         "lastName": "Gartenhag",
-        "privateKey": "...."
+        "publicKey": "....",
+        "email": "supply@test.ch"
     },
     "lauraSteuererklaerung": {
         "firstName": "Laura",
         "lastName": "Steuererklärung",
-        "privateKey": "..."
+        "publicKey": "...",
+        "email": "consumer@test.ch"
     }
 }
