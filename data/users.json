@@ -1,4 +1,4 @@
-[
+{
     "maxGartenhag": {
         "firstName": "Max",
         "lastName": "Gartenhag",
@@ -9,4 +9,4 @@
         "lastName": "Steuererklärung",
         "privateKey": "..."
     }
-]
+}
