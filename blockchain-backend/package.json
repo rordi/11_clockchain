@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "rpc": "testrpc"
+  },
+  "dependencies": {
+    "ethereumjs-testrpc": "^4.1.3",
+    "truffle": "^3.4.11",
+    "zeppelin-solidity": "^1.3.0"
+  }
+}
