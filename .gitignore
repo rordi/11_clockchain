@@ -1,1 +1,3 @@
 .idea
+node_modules
+blockchain-backend/node_modules
