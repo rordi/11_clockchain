@@ -10,6 +10,8 @@
 
       <Balance/>
 
+      <Transfer/>
+
       <el-row>
         <el-col :span="6">
           <el-tag size="small" type="warning">
@@ -71,12 +73,14 @@
   import ElRow from 'element-ui/packages/row/src/row'
   import ElCol from 'element-ui/packages/col/src/col'
   import Balance from './Balance.vue'
+  import Transfer from './Transfer.vue'
 
   export default {
     components: {
       ElCol,
       ElRow,
-      Balance
+      Balance,
+      Transfer
     },
     data () {
       return {
