@@ -8,8 +8,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import App from './App.vue'
 import router from './router'
-import { store } from './store'
-import Firebase from 'firebase'
+import { store, db } from './store'
 
 Vue.config.productionTip = false
 
@@ -22,17 +21,17 @@ Vue.use(Vuex)
 Vue.use(ElementUI)
 Vue.use(Notie)
 
-// init firebyse config
-let config = {
-  apiKey: 'AIzaSyCTLr6Tz0uTZdFhlI8wZ3qE6NShhpaieo4',
-  authDomain: 'clockchain-8e2bb.firebaseapp.com',
-  databaseURL: 'https://clockchain-8e2bb.firebaseio.com',
-  projectId: 'clockchain-8e2bb',
-  storageBucket: 'clockchain-8e2bb.appspot.com',
-  messagingSenderId: '199252938014'
-}
-let app = Firebase.initializeApp(config)
-let db = app.database()
+// // init firebyse config
+// let config = {
+//   apiKey: 'AIzaSyCTLr6Tz0uTZdFhlI8wZ3qE6NShhpaieo4',
+//   authDomain: 'clockchain-8e2bb.firebaseapp.com',
+//   databaseURL: 'https://clockchain-8e2bb.firebaseio.com',
+//   projectId: 'clockchain-8e2bb',
+//   storageBucket: 'clockchain-8e2bb.appspot.com',
+//   messagingSenderId: '199252938014'
+// }
+// let app = Firebase.initializeApp(config)
+// let db = app.database()
 
 // expose firebase db for components as this.$db
 Vue.prototype.$db = db

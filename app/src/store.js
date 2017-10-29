@@ -3,9 +3,23 @@ import Vue from 'vue'
 import router from './router'
 import Vuex from 'vuex'
 import { firebaseAction, firebaseMutations } from 'vuexfire'
+import Firebase from 'firebase'
 // import Service from './api/Mock'
 
 Vue.use(Vuex)
+
+// init firebyse config
+let config = {
+  apiKey: 'AIzaSyCTLr6Tz0uTZdFhlI8wZ3qE6NShhpaieo4',
+  authDomain: 'clockchain-8e2bb.firebaseapp.com',
+  databaseURL: 'https://clockchain-8e2bb.firebaseio.com',
+  projectId: 'clockchain-8e2bb',
+  storageBucket: 'clockchain-8e2bb.appspot.com',
+  messagingSenderId: '199252938014'
+}
+let app = Firebase.initializeApp(config)
+let intdb = app.database()
+export const db = intdb
 
 export const setAppStateRef = firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }, { ref }) => {
   bindFirebaseRef('appState', ref)
@@ -55,7 +69,7 @@ export const store = new Vuex.Store({
     // consumer view (missions I booked)
     bookedMissions (state) {
       return state.appState.missions.filter(function (mission) {
-        return mission.status === 'booked' && mission.consumerId === state.user.id
+        return mission.status === 'booked' && mission.supplierId !== state.user.id
       })
     },
 
@@ -76,7 +90,7 @@ export const store = new Vuex.Store({
     // consumer view (missions I booked that were confirmed)
     confirmedMissions (state) {
       return state.appState.missions.filter(function (mission) {
-        return mission.status === 'accepted' && mission.consumerId === state.user.id
+        return mission.status === 'accepted' && mission.supplierId !== state.user.id
       })
     },
 
@@ -191,25 +205,16 @@ export const store = new Vuex.Store({
       })
     },
 
-    // login ({ commit, state }, { username, password }) {
-    //   return new Promise((resolve, reject) => {
-    //     if (!username && state.user && username === state.user.email) {
-    //       resolve(state.user)
-    //       return
-    //     }
-    //     commit('START_REQUEST')
-    //     if (username === 'consumer@test.ch' && password) {
-    //       commit('SET_USER', state.users.consumer)
-    //       commit('END_REQUEST')
-    //       resolve(state.users.consumer)
-    //     } else if (username === 'supplier@test.ch' && password) {
-    //       commit('SET_USER', state.users.supplier)
-    //       commit('END_REQUEST')
-    //       resolve(state.users.supplier)
-    //     }
-    //     commit('END_REQUEST')
-    //   })
-    // },
+    statusChange ({ commit, state }, { mission, status }) {
+      return new Promise((resolve, reject) => {
+        commit('START_REQUEST')
+        let id = mission.id
+        let key = (id - 1)
+        state.appState.missions[key].status = status
+        commit('END_REQUEST')
+        resolve()
+      })
+    },
 
     logout ({ commit }) {
       return new Promise((resolve, reject) => {
