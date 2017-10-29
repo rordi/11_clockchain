@@ -26,5 +26,5 @@ where result is an integer value in hexadecimal notation
 
 ### Transfer one hour from consumer to supplier
 * this is a pre-signed transaction that can only be fired once:
-
-- [ ] TODO: updated url
+* stored in firebase (appState/transferUrl)
+- [x] TODO: updated url
