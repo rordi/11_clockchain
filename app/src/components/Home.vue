@@ -6,19 +6,7 @@
     </div>
 
     <div class="container">
-      <h1>Wilkommen, {{ user.firstname }}</h1>
-
-
-      <el-row>
-        <el-col :span="6">
-          <el-tag size="small" type="warning">
-            Name
-          </el-tag>
-        </el-col>
-        <el-col :span="18">
-          <span>{{ user.firstname }} {{ user.lastname }}</span>
-        </el-col>
-      </el-row>
+      <h1>Willkommen, {{ user.firstname }} {{ user.lastname }}</h1>
 
       <el-row>
         <el-col :span="6">
@@ -31,12 +19,29 @@
         </el-col>
       </el-row>
 
+      <!--<div class="booked" v-if="appState.missions.booked.length > 0">-->
+        <!--<h1>Buchungsanfragen</h1>-->
+      <!--</div>-->
+
+      <!--<div class="accepted" v-if="appState.missions.accepted.length > 0">-->
+        <!--<h1>Bestätigte Buchungen</h1>-->
+      <!--</div>-->
+
+      <!--<div class="claimed" v-if="appState.missions.claimed.length > 0">-->
+        <!--<h1>Zeitgutschrift angefordert</h1>-->
+      <!--</div>-->
+
       <div class="marketplace">
-        <h3>Marktplatz</h3>
-        <div v-for="mission in appState.missions.open" class="item">
+        <h1>Marktplatz</h1>
+        <div v-for="mission in openMissions" class="item">
           <el-row>
             <el-col :span="18">
-              {{ mission.description }}
+              <h4>{{ mission.title}}</h4>
+              <div style="clear: both">
+                <small>
+                  {{ mission.description }}
+                </small>
+              </div>
             </el-col>
             <el-col :span="6">
               <el-button type="success" size="small" class="book">
@@ -49,6 +54,9 @@
               <el-tag v-for="tag in mission.tags" size="mini" class="tag">{{ tag }}</el-tag>
             </el-col>
           </el-row>
+        </div>
+        <div v-if="!openMissions || openMissions.length === 0">
+          <em>Es sind im Moment keine Anfragen offen.</em>
         </div>
       </div>
 
@@ -70,9 +78,8 @@
       return {
       }
     },
-    computed: Vuex.mapState(['appState', 'user']),
+    computed: Vuex.mapState(['user', 'openMissions']),
     created () {
-      this.$store.dispatch('setAppStateRef', this.$db.ref('appState'))
     },
     methods: {
       logout (event) {
@@ -94,6 +101,13 @@
     }
   }
 
+
+  h1 {
+    font-size: 1.3em;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
   pre {
     font-family: monospace;
     font-size: 0.9em;
@@ -110,7 +124,12 @@
     padding: 0.5em 1em;
     border: 1px solid #e5e5e5;
     background: #fbfbfb;
-    border-radius: 3px;
+    border-radius: 6px;
+
+    h4 {
+      margin-top: 0;
+      float: left;
+    }
   }
 
   .book {

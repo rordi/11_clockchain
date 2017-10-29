@@ -42,6 +42,17 @@ export const store = new Vuex.Store({
 
     users: state => state.users,
 
+    openMissions (state) {
+      let open = []
+      if (state.appState.missions) {
+        open = state.appState.missions.open.filter(function (mission) {
+          return mission.supplierId !== state.user.id
+        })
+      }
+      debugger
+      return open
+    },
+
     authenticated (state) {
       return (state.user && state.user !== null && state.user !== {})
     },

@@ -22,10 +22,11 @@
     "missions": {
       "open": [
         {
-          "id": 1,
+          "id": 3,
           "supplierId": 1,
           "consumerId": null,
-          "description": "Gartenarbeit",
+          "title": "Gartenarbeit",
+          "description": "Ich bin gelernter Gärtner und helfe am Wochenende in privaten Haushalten aus.",
           "estimated": "2:00",
           "tags": [
             "Rasenmähen",
@@ -37,11 +38,18 @@
           "id": 2,
           "supplierId": 2,
           "consumerId": null,
-          "description": "Kochen",
-          "estimated": "1:30"
+          "title": "Kochen",
+          "description": "Leidenschaftlicher Koch sucht Gourmet-Mund zum verköstigen.",
+          "estimated": "1:00",
+          "tags": [
+            "leckeres Essen",
+            "#IchBinEinGourmet"
+          ]
         }
       ],
       "booked": [
+      ],
+      "accepted": [
       ],
       "claimed": [
       ],
