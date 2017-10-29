@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <img src="~assets/logo.png" alt="Teacherflow" width="55" height="55">
+    <img src="~assets/logo.png" alt="Clockchain" width="55" height="55">
     <h1>Clockchain</h1>
     <el-row>
       <el-col>
