@@ -15,12 +15,18 @@
 </script>
 
 <style>
-#app {
+
+@import '../node_modules/notie/dist/notie.min.css';
+
+* {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+}
+
+#app {
+  margin-top: 50px;
   color: #2c3e50;
-  margin-top: 60px;
+  text-align: center;
 }
 </style>

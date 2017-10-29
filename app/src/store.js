@@ -1,7 +1,7 @@
 // State management implementing the Flux pattern and using Vuex
 import Vue from 'vue'
-import Vuex from 'vuex'
 import router from './router'
+import Vuex from 'vuex'
 // import Service from 'api/Service'
 import Service from './api/Mock'
 
@@ -35,7 +35,7 @@ export const store = new Vuex.Store({
   getters: {
 
     authenticated (state) {
-      return (state.user && state.user !== null)
+      return (state.user && state.user !== null && state.user !== {})
     },
 
     token (state) {
@@ -132,13 +132,10 @@ export const store = new Vuex.Store({
 
         Service.login(username, password, result => {
           commit('SET_USER', result.user)
-          commit('SET_APP_DATA', {
-            // to be defined
-          })
-          commit('SET_TOKEN', result.token)
-
+          commit('SET_APP_DATA', {})
+          // commit('SET_TOKEN', result.token)
           commit('END_REQUEST')
-          resolve(result.user)
+          resolve(result)
         },
         err => {
           commit('END_REQUEST', [err])
