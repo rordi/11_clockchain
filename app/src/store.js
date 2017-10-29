@@ -211,6 +211,7 @@ export const store = new Vuex.Store({
         let id = mission.id
         let key = (id - 1)
         state.appState.missions[key].status = status
+        db.ref('appState').push()
         commit('END_REQUEST')
         resolve()
       })

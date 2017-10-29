@@ -25,11 +25,11 @@
         </span>
 
         <!-- supplier claims a confirmed mission-->
-        <span v-if="mission.status && mission.status === 'accepted'" @click="claimMission">
-          <el-button type="success" size="small" class="book">
-            Gutschrift anfragen
-          </el-button>
-        </span>
+        <!--<span v-if="mission.status && mission.status === 'accepted'" @click="claimMission">-->
+          <!--<el-button type="success" size="small" class="book">-->
+            <!--Gutschrift anfragen-->
+          <!--</el-button>-->
+        <!--</span>-->
 
         <!-- consumer confirms claimed mission-->
         <span v-if="mission.status && mission.status === 'accepted'">
