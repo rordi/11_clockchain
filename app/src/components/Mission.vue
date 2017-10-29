@@ -33,9 +33,7 @@
 
         <!-- consumer confirms claimed mission-->
         <span v-if="mission.status && mission.status === 'accepted'">
-          <el-button type="success" size="small" class="book">
-            Gutschrift bestätigen
-          </el-button>
+          <Transfer/>
         </span>
 
       </el-col>
@@ -51,13 +49,15 @@
 <script>
 import ElRow from 'element-ui/packages/row/src/row'
 import ElCol from 'element-ui/packages/col/src/col'
+import Transfer from './Transfer'
 
 export default {
   name: 'Mission',
   props: ['mission'],
   components: {
     ElCol,
-    ElRow
+    ElRow,
+    Transfer
   },
   data () {
     return {

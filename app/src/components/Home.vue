@@ -11,8 +11,6 @@
 
       <Balance/>
 
-      <Transfer/>
-
       <el-row>
         <el-col :span="6">
           <el-tag size="small" type="warning">

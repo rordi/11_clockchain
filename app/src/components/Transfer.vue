@@ -1,9 +1,5 @@
 <template>
-  <div class="transfer" v-loading="isBusy">
-    <el-button @click="transfer" type="success">Transfer</el-button>
-    <div>{{ msg }}</div>
-    <div class="error">{{ details }}</div>
-  </div>
+  <el-button @click="transfer" type="success" v-loading="isBusy">Gutschrift bestätigen</el-button>
 </template>
 
 <script>
@@ -33,12 +29,10 @@ export default {
         .then(response => {
           console.log(response)
           if (response.body && response.body.error) {
-            this.msg = 'There was an error!'
-            this.details = response.body.error.message
+            this.$notie.alert('error', 'Es gab ein Fehler: ' + response.body.error.message)
             return
           }
-          this.msg = 'Transferred time!'
-          this.details = ''
+          this.$notie.alert('success', 'Zeitgutschrift erfolgreich.')
         })
         .catch(response => {
           console.error(response)
