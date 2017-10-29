@@ -25,6 +25,7 @@
   }
 
   #app {
+    font-size: 1.2em;
     color: #2c3e50;
     max-width: 500px;
     margin: 0 auto;

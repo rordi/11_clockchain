@@ -33,16 +33,23 @@
 
       <div class="marketplace">
         <h3>Marktplatz</h3>
-        <el-row v-for="mission in appState.missions.open" class="item">
-          <el-col :span="18">
-            {{ mission.description }}
-          </el-col>
-          <el-col :span="6">
-            <el-button plain type="success" size="small" class="book">
-              Buchen
-            </el-button>
-          </el-col>
-        </el-row>
+        <div v-for="mission in appState.missions.open" class="item">
+          <el-row>
+            <el-col :span="18">
+              {{ mission.description }}
+            </el-col>
+            <el-col :span="6">
+              <el-button type="success" size="small" class="book">
+                Buchen
+              </el-button>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="24">
+              <el-tag v-for="tag in mission.tags" size="mini" class="tag">{{ tag }}</el-tag>
+            </el-col>
+          </el-row>
+        </div>
       </div>
 
     </div>
@@ -108,6 +115,10 @@
 
   .book {
     float: right;
+  }
+
+  .tag {
+    margin: 0.6em 1em 0 0;
   }
 
 </style>
