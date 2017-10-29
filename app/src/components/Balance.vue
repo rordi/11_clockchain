@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       isBusy: false,
-      balance: 8
+      balance: ''
     }
   }
 }
