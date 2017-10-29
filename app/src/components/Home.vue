@@ -8,6 +8,8 @@
     <div class="container">
       <h1>Wilkommen, {{ user.firstname }}</h1>
 
+      <Balance />
+
 
       <el-row>
         <el-col :span="6">
@@ -33,7 +35,7 @@
 
       <div class="marketplace">
         <h3>Marktplatz</h3>
-        <div v-for="mission in appState.missions.open" class="item">
+        <div v-for="mission in appState.missions.open" class="item" :key="mission.id">
           <el-row>
             <el-col :span="18">
               {{ mission.description }}
@@ -60,11 +62,13 @@
   import Vuex from 'vuex'
   import ElRow from 'element-ui/packages/row/src/row'
   import ElCol from 'element-ui/packages/col/src/col'
+  import Balance from './Balance'
 
   export default {
     components: {
       ElCol,
-      ElRow
+      ElRow,
+      Balance
     },
     data () {
       return {
