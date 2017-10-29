@@ -25,6 +25,7 @@
       "open": [
         {
           "id": 3,
+          "status": "open",
           "supplierId": 1,
           "consumerId": null,
           "title": "Gartenarbeit",
@@ -38,6 +39,7 @@
         },
         {
           "id": 2,
+          "status": "open",
           "supplierId": 2,
           "consumerId": null,
           "title": "Kochen",
@@ -58,6 +60,7 @@
       "past": [
         {
           "id": 1,
+          "status": "past",
           "supplierId": 2,
           "consumerId": 1,
           "description": "Gartenarbeit",
