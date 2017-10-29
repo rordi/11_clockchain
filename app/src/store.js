@@ -12,7 +12,7 @@ export const setAppStateRef = firebaseAction(({ bindFirebaseRef, unbindFirebaseR
   unbindFirebaseRef('appState')
 })
 
-export const serUsersRef = firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }, { ref }) => {
+export const setUsersRef = firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }, { ref }) => {
   bindFirebaseRef('users', ref)
   unbindFirebaseRef('users')
 })
@@ -73,7 +73,7 @@ export const store = new Vuex.Store({
       })
     },
 
-    // consumer view (missions I booked that werde confirmed)
+    // consumer view (missions I booked that were confirmed)
     confirmedMissions (state) {
       return state.appState.missions.filter(function (mission) {
         return mission.status === 'accepted' && mission.consumerId === state.user.id
@@ -165,7 +165,7 @@ export const store = new Vuex.Store({
       bindFirebaseRef('appState', ref)
     }),
 
-    serUsersRef: firebaseAction(({
+    setUsersRef: firebaseAction(({
       bindFirebaseRef
     }, ref) => {
       bindFirebaseRef('users', ref)
@@ -190,6 +190,26 @@ export const store = new Vuex.Store({
         commit('END_REQUEST')
       })
     },
+
+    // login ({ commit, state }, { username, password }) {
+    //   return new Promise((resolve, reject) => {
+    //     if (!username && state.user && username === state.user.email) {
+    //       resolve(state.user)
+    //       return
+    //     }
+    //     commit('START_REQUEST')
+    //     if (username === 'consumer@test.ch' && password) {
+    //       commit('SET_USER', state.users.consumer)
+    //       commit('END_REQUEST')
+    //       resolve(state.users.consumer)
+    //     } else if (username === 'supplier@test.ch' && password) {
+    //       commit('SET_USER', state.users.supplier)
+    //       commit('END_REQUEST')
+    //       resolve(state.users.supplier)
+    //     }
+    //     commit('END_REQUEST')
+    //   })
+    // },
 
     logout ({ commit }) {
       return new Promise((resolve, reject) => {

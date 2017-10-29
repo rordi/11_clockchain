@@ -51,7 +51,7 @@
     },
     computed: Vuex.mapState(['users']),
     created () {
-      this.$store.dispatch('serUsersRef', this.$db.ref('users'))
+      this.$store.dispatch('setUsersRef', this.$db.ref('users'))
     },
     logo () {
       return require('../assets/logo.png')

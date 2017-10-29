@@ -24,6 +24,7 @@
         </el-col>
       </el-row>
 
+
       <div class="marketplace">
         <h1>Marktplatz</h1>
         <div v-for="mission in openMissions">
@@ -33,6 +34,40 @@
           <em>Es sind im Moment keine Anfragen offen.</em>
         </div>
       </div>
+
+      <hr/>
+
+      <div class="marketplace">
+        <h4>Provisorisch gebuchte Leistungen</h4>
+        <div v-for="mission in bookedMissions">
+          <Mission v-bind:mission="mission"/>
+        </div>
+      </div>
+
+      <div class="marketplace">
+        <h4>Gebuchte Leistungen</h4>
+        <div v-for="mission in confirmedMissions">
+          <Mission v-bind:mission="mission"/>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="marketplace">
+        <h4>Zu bestätigende Einsätze</h4>
+        <div v-for="mission in pendingAcceptanceMissions">
+          <Mission v-bind:mission="mission"/>
+        </div>
+      </div>
+
+      <div class="marketplace">
+        <h4>Bestätigte Einsätze</h4>
+        <div v-for="mission in acceptedMissions">
+          <Mission v-bind:mission="mission"/>
+        </div>
+      </div>
+
+      <hr/>
 
     </div>
   </div>

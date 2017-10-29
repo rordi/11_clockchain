@@ -11,21 +11,21 @@
       </el-col>
       <el-col :span="6">
         <!-- consumer books a mission-->
-        <span v-if="mission.status && mission.status === 'open'">
+        <span v-if="mission.status && mission.status === 'open'" @click="bookMission">
           <el-button type="success" size="small" class="book">
-            Buchen
+            provisorisch Buchen
           </el-button>
         </span>
 
         <!-- supplier confirms a booked mission-->
-        <span v-if="mission.status && mission.status === 'booked'">
+        <span v-if="mission.status && mission.status === 'booked'" @click="acceptMission">
           <el-button type="success" size="small" class="book">
             Bestätigen
           </el-button>
         </span>
 
         <!-- supplier claims a confirmed mission-->
-        <span v-if="mission.status && mission.status === 'accepted'">
+        <span v-if="mission.status && mission.status === 'accepted'" @click="claimMission">
           <el-button type="success" size="small" class="book">
             Gutschrift anfragen
           </el-button>
@@ -62,6 +62,32 @@ export default {
   data () {
     return {
       mission: {}
+    }
+  },
+  methods: {
+    bookMission: function () {
+      this.$store.dispatch('statusChange', { mission: mission, status: 'booked'})
+        .then((res) => {
+          notie.alert('success', 'Einsatz provisorisch gebucht.')
+        }).catch(function () {
+          notie.alert('error', 'Fehler beim Speichern.')
+        })
+    },
+    acceptMission: function () {
+      this.$store.dispatch('statusChange', { mission: mission, status: 'accepted'})
+        .then((res) => {
+          notie.alert('success', 'Einsatz akzeptiert.')
+        }).catch(function () {
+          notie.alert('error', 'Fehler beim Speichern.')
+        })
+    },
+    claimMission: function () {
+      this.$store.dispatch('statusChange', { mission: mission, status: 'claimed'})
+        .then((res) => {
+          notie.alert('success', 'Zeitgutschrift angefragt')
+        }).catch(function () {
+          notie.alert('error', 'Fehler beim Speichern.')
+        })
     }
   }
 }
