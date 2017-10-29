@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <img src="~assets/logo.png" alt="Clockchain" width="55" height="55">
     <h1>Clockchain</h1>
     <el-row>
       <el-col>
@@ -52,12 +53,18 @@
     created () {
       this.$store.dispatch('serUsersRef', this.$db.ref('users'))
     },
+    logo () {
+      return require('../assets/logo.png')
+    },
     methods: {
       login (event) {
         let notie = this.$notie
         if (this.username !== '' && this.password !== '') {
           this.$store.dispatch('login', { username: this.username, password: this.password })
             .then((user) => {
+              if (user) {
+                this.$store.dispatch('setAppStateRef', this.$db.ref('appState'))
+              }
               if (this.redirect) {
                 this.$router.push(this.redirect)
               }

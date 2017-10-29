@@ -40,7 +40,96 @@ export const store = new Vuex.Store({
 
     appState: state => state.appState,
 
+    user: state => state.user,
+
     users: state => state.users,
+
+    openMissions (state) {
+      let open = []
+      if (state.appState.missions) {
+        open = state.appState.missions.open.filter(function (mission) {
+          return mission.supplierId !== state.user.id
+        })
+      }
+      return open
+    },
+
+    // consumer view (missions I booked)
+    bookedMissions (state) {
+      let booked = []
+      if (state.appState.missions) {
+        booked = state.appState.missions.booked.filter(function (mission) {
+          return mission.consumerId === state.user.id
+        })
+      }
+      return booked
+    },
+
+    // supplier view (missions I offer that were booked)
+    pendingAcceptanceMissions (state) {
+      let pending = []
+      if (state.appState.missions) {
+        pending = state.appState.missions.booked.filter(function (mission) {
+          return mission.supplierId === state.user.id
+        })
+      }
+      return pending
+    },
+
+    // supplier view (missions I offer that I accpeted)
+    acceptedMissions (state) {
+      let accepted = []
+      if (state.appState.missions) {
+        accepted = state.appState.missions.accepted.filter(function (mission) {
+          return mission.supplierId === state.user.id
+        })
+      }
+      return accepted
+    },
+
+    // consumer view (missions I booked that werde confirmed)
+    confirmedMissions (state) {
+      let confirmed = []
+      if (state.appState.missions) {
+        confirmed = state.appState.missions.accepted.filter(function (mission) {
+          return mission.consumerId === state.user.id
+        })
+      }
+      return confirmed
+    },
+
+    // supplier view (missions I offered and I claimed)
+    claimedMissions (state) {
+      let claimed = []
+      if (state.appState.missions) {
+        claimed = state.appState.missions.claimed.filter(function (mission) {
+          return mission.supplierId === state.user.id
+        })
+      }
+      return claimed
+    },
+
+    // consumer view (missions I booked and are pending my claim confirmation)
+    pendingClaimConfirmationMissions (state) {
+      let pending = []
+      if (state.appState.missions) {
+        pending = state.appState.missions.claimed.filter(function (mission) {
+          return mission.consumerId === state.user.id
+        })
+      }
+      return pending
+    },
+
+    // supplier view (missions I offer that I accpeted)
+    pastMissions (state) {
+      let past = []
+      if (state.appState.missions) {
+        past = state.appState.missions.past.filter(function (mission) {
+          return mission.supplierId === state.user.id || mission.consumerId === state.user.id
+        })
+      }
+      return past
+    },
 
     authenticated (state) {
       return (state.user && state.user !== null && state.user !== {})

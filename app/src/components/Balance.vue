@@ -30,6 +30,11 @@ export default {
 
   created () {
     this.refresh()
+    setInterval(this.refresh, 5000)
+  },
+
+  destroyed () {
+    clearInterval(this.refresh)
   },
 
   computed: Vuex.mapState(['appState', 'user']),
@@ -37,7 +42,7 @@ export default {
   data () {
     return {
       isBusy: false,
-      balance: 8
+      balance: ''
     }
   }
 }
