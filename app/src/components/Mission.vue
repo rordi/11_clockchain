@@ -66,7 +66,8 @@ export default {
   },
   methods: {
     bookMission: function () {
-      this.$store.dispatch('statusChange', { mission: mission, status: 'booked'})
+      let notie = this.$notie
+      this.$store.dispatch('statusChange', { mission: this.mission, status: 'booked' })
         .then((res) => {
           notie.alert('success', 'Einsatz provisorisch gebucht.')
         }).catch(function () {
@@ -74,7 +75,8 @@ export default {
         })
     },
     acceptMission: function () {
-      this.$store.dispatch('statusChange', { mission: mission, status: 'accepted'})
+      let notie = this.$notie
+      this.$store.dispatch('statusChange', { mission: this.mission, status: 'accepted' })
         .then((res) => {
           notie.alert('success', 'Einsatz akzeptiert.')
         }).catch(function () {
@@ -82,7 +84,8 @@ export default {
         })
     },
     claimMission: function () {
-      this.$store.dispatch('statusChange', { mission: mission, status: 'claimed'})
+      let notie = this.$notie
+      this.$store.dispatch('statusChange', { mission: this.mission, status: 'claimed' })
         .then((res) => {
           notie.alert('success', 'Zeitgutschrift angefragt')
         }).catch(function () {
