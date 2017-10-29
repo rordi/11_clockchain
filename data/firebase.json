@@ -6,7 +6,8 @@
       "lastname": "Frisch",
       "email": "supplier@test.ch",
       "wallet": "supplierethwalletaddress",
-      "transferto": "binarycalltransfertosuplier"
+      "transferto": "binarycalltransfertosuplier",
+      "balanceUrl": "https://rinkeby.etherscan.io/api?action=eth_call&data=0x70a0823100000000000000000000000042c5F1D3Eb4192AF3D4ad27eE5a15f8e835ab79D&module=proxy&to=0x9946AC2aCc28Ca76ef26c85112a114C530211c42&apikey=9KWJ8VHX6I9Y72C91B8W2EG3ZGB6H7SDN1"
     },
     "consumer": {
       "id": 2,
@@ -14,7 +15,8 @@
       "lastname": "Busch",
       "email": "consumer@test.ch",
       "wallet": "consumerethwalletaddress",
-      "transferto": "binarycalltransfertoconsumer"
+      "transferto": "binarycalltransfertoconsumer",
+      "balanceUrl": "https://rinkeby.etherscan.io/api?action=eth_call&data=0x70a0823100000000000000000000000042c5F1D3Eb4192AF3D4ad27eE5a15f8e835ab79D&module=proxy&to=0x9946AC2aCc28Ca76ef26c85112a114C530211c42&apikey=9KWJ8VHX6I9Y72C91B8W2EG3ZGB6H7SDN1"
     }
   },
   "appState": {
