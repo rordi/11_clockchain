@@ -8,6 +8,8 @@
     <div class="container">
       <h1>Willkommen, {{ user.firstname }} {{ user.lastname }}</h1>
 
+      <Balance/>
+
       <el-row>
         <el-col :span="6">
           <el-tag size="small" type="warning">
@@ -68,17 +70,20 @@
   import Vuex from 'vuex'
   import ElRow from 'element-ui/packages/row/src/row'
   import ElCol from 'element-ui/packages/col/src/col'
+  import Balance from './Balance.vue'
 
   export default {
     components: {
       ElCol,
-      ElRow
+      ElRow,
+      Balance
     },
     data () {
       return {
+        openMissions: this.$store.getters.appState.openMissions
       }
     },
-    computed: Vuex.mapState(['user', 'openMissions']),
+    computed: Vuex.mapState(['user']),
     created () {
     },
     methods: {

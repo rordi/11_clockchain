@@ -49,7 +49,6 @@ export const store = new Vuex.Store({
           return mission.supplierId !== state.user.id
         })
       }
-      debugger
       return open
     },
 
