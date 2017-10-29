@@ -26,7 +26,12 @@
           "supplierId": 1,
           "consumerId": null,
           "description": "Gartenarbeit",
-          "estimated": "2:00"
+          "estimated": "2:00",
+          "tags": [
+            "Rasenmähen",
+            "Hecken schneiden",
+            "Unkraut entfernen"
+          ]
         },
         {
           "id": 2,
@@ -35,6 +40,8 @@
           "description": "Kochen",
           "estimated": "1:30"
         }
+      ],
+      "booked": [
       ],
       "claimed": [
       ],
