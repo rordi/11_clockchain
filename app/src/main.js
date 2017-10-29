@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueResource from 'vue-resource'
 import Notie from 'vue-notie'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -16,6 +17,7 @@ const moment = require('moment')
 require('moment/locale/de')
 Vue.use(require('vue-moment'), { moment })
 Vue.use(router)
+Vue.use(VueResource)
 Vue.use(Vuex)
 Vue.use(ElementUI)
 Vue.use(Notie)
