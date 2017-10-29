@@ -12,7 +12,8 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login,
-      alias: '/'
+      alias: '/',
+      meta: { auth: false }
     },
     {
       path: '/home',
@@ -24,7 +25,8 @@ export default new Router({
     // not found handler
     {
       path: '*',
-      component: NotFound
+      component: NotFound,
+      meta: { auth: false }
     }
   ]
 })

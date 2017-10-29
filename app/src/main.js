@@ -2,14 +2,13 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuex from 'vuex'
-import FireBase from 'firebase'
-import VuexFirebase from 'vuex-firebase'
 import Notie from 'vue-notie'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import App from './App.vue'
 import router from './router'
 import { store } from './store'
+import Firebase from 'firebase'
 
 Vue.config.productionTip = false
 
@@ -21,7 +20,7 @@ Vue.use(Vuex)
 Vue.use(ElementUI)
 Vue.use(Notie)
 
-// init the firebase-based backend with vuex
+// init firebyse config
 let config = {
   apiKey: 'AIzaSyCTLr6Tz0uTZdFhlI8wZ3qE6NShhpaieo4',
   authDomain: 'clockchain-8e2bb.firebaseapp.com',
@@ -30,8 +29,11 @@ let config = {
   storageBucket: 'clockchain-8e2bb.appspot.com',
   messagingSenderId: '199252938014'
 }
-FireBase.initializeApp(config)
-VuexFirebase(store, FireBase)
+let app = Firebase.initializeApp(config)
+let db = app.database()
+
+// expose firebase db for components as this.$db
+Vue.prototype.$db = db
 
 // Some middleware to help us ensure the user is authenticated.
 router.beforeEach((to, from, next) => {
@@ -41,7 +43,7 @@ router.beforeEach((to, from, next) => {
   // scroll to top
   window.scrollTo(0, 0)
   if (to.matched.some(record => record.meta.auth)) {
-    if (!store.getters.authenticated) {
+    if (!store || !store.getters.authenticated) {
       next({
         path: '/login',
         query: { redirect: to.fullPath }

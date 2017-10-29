@@ -2,63 +2,69 @@
 import Vue from 'vue'
 import router from './router'
 import Vuex from 'vuex'
-// import Service from 'api/Service'
-import Service from './api/Mock'
+import { firebaseAction, firebaseMutations } from 'vuexfire'
+// import Service from './api/Mock'
 
 Vue.use(Vuex)
 
+export const setAppStateRef = firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }, { ref }) => {
+  bindFirebaseRef('appState', ref)
+  unbindFirebaseRef('appState')
+})
+
+export const serUsersRef = firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }, { ref }) => {
+  bindFirebaseRef('users', ref)
+  unbindFirebaseRef('users')
+})
+
+let initalState = {
+  // the authenticated user
+  user: null,
+  // all users
+  users: {},
+  // app state data
+  appState: {},
+  // get in progress
+  loading: false,
+  // post/put/delete in progress
+  submitting: false,
+  // collect errors
+  errors: []
+}
+
 export const store = new Vuex.Store({
-
-  state: {
-
-    // the JWT token
-    token: null,
-
-    // the authenticated user
-    user: null,
-
-    // app state data
-    appData: {
-    },
-
-    // get in progress
-    loading: false,
-
-    // post/put/delete in progress
-    submitting: false,
-
-    // collect errors
-    errors: []
-
-  },
+  strict: true,
+  state: initalState,
 
   getters: {
+
+    appState: state => state.appState,
+
+    users: state => state.users,
 
     authenticated (state) {
       return (state.user && state.user !== null && state.user !== {})
     },
 
-    token (state) {
-      return state.token
-    },
-
     firstname (state) {
-      return state.user ? state.user.firstname : null
+      return state.user ? state.user.firstname : ''
     },
 
     lastname (state) {
-      return state.user ? state.user.lastname : null
+      return state.user ? state.user.lastname : ''
     }
   },
 
   mutations: {
 
+    ...firebaseMutations,
+
     SET_USER (state, user) {
       state.user = user
     },
 
-    SET_APP_DATA (state, appData) {
-      state.appData = appData
+    SET_APP_STATE (state, appState) {
+      state.appState = appState
     },
 
     START_REQUEST (state, load) {
@@ -81,66 +87,48 @@ export const store = new Vuex.Store({
       state.user.lastname = names.lastname
     },
 
-    SET_TOKEN (state, token) {
-      state.token = token
-      try {
-        if ('localStorage' in window && window['localStorage'] !== null) {
-          // Store token in local storage of browser
-          localStorage.setItem('token', token)
-        }
-      } catch (e) {
-        Vue.log.error('localStorage not available', e)
-      }
-    },
-
     LOGOUT_USER (state) {
-      store.replaceState({
-        token: null,
-        user: null,
-        loading: null,
-        errors: null,
-        appData: {
-        }
-      })
-      localStorage.setItem('token', '')
-      router.push({ name: 'Login', params: { logout: true } })
+      store.replaceState(initalState)
+      router.push('/login')
     },
 
     FORCED_LOGOUT (state) {
-      store.replaceState({
-        token: null,
-        user: null,
-        loading: null,
-        errors: null,
-        appData: {
-        }
-      })
-      localStorage.setItem('token', '')
-      router.push({ name: 'Login', params: { error: true } })
+      store.replaceState(initalState)
+      router.push('/login')
     }
   },
 
   actions: {
 
+    setAppStateRef: firebaseAction(({
+      bindFirebaseRef
+    }, ref) => {
+      bindFirebaseRef('appState', ref)
+    }),
+
+    serUsersRef: firebaseAction(({
+      bindFirebaseRef
+    }, ref) => {
+      bindFirebaseRef('users', ref)
+    }),
+
     login ({ commit, state }, { username, password }) {
       return new Promise((resolve, reject) => {
-        if (!username && state.token && state.user) {
+        if (!username && state.user && username === state.user.email) {
           resolve(state.user)
           return
         }
         commit('START_REQUEST')
-
-        Service.login(username, password, result => {
-          commit('SET_USER', result.user)
-          commit('SET_APP_DATA', {})
-          // commit('SET_TOKEN', result.token)
+        if (username === 'consumer@test.ch' && password) {
+          commit('SET_USER', state.users.consumer)
           commit('END_REQUEST')
-          resolve(result)
-        },
-        err => {
-          commit('END_REQUEST', [err])
-          reject(err)
-        })
+          resolve(state.users.consumer)
+        } else if (username === 'supplier@test.ch' && password) {
+          commit('SET_USER', state.users.supplier)
+          commit('END_REQUEST')
+          resolve(state.users.supplier)
+        }
+        commit('END_REQUEST')
       })
     },
 

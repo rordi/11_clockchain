@@ -16,17 +16,26 @@
 
 <style>
 
-@import '../node_modules/notie/dist/notie.min.css';
+  @import '../node_modules/notie/dist/notie.min.css';
 
-* {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  * {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-#app {
-  margin-top: 50px;
-  color: #2c3e50;
-  text-align: center;
-}
+  #app {
+    color: #2c3e50;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .container {
+    margin-top: 50px;
+  }
+
+  .el-row {
+    margin: 1em 0;
+  }
+
 </style>

@@ -1,10 +1,6 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Clockchain</h1>
-    <p>
-      <router-link to="/home">Test home</router-link>
-    </p>
-
     <el-row>
       <el-col>
         <el-select v-model="username" placeholder="E-Mail" style="display: block;">
@@ -35,6 +31,8 @@
 </template>
 
 <script>
+  import Vuex from 'vuex'
+
   export default {
     props: ['redirect', 'error', 'logout'],
     data () {
@@ -50,8 +48,13 @@
         password: ''
       }
     },
+    computed: Vuex.mapState(['users']),
+    created () {
+      this.$store.dispatch('serUsersRef', this.$db.ref('users'))
+    },
     methods: {
       login (event) {
+        let notie = this.$notie
         if (this.username !== '' && this.password !== '') {
           this.$store.dispatch('login', { username: this.username, password: this.password })
             .then((user) => {
@@ -60,41 +63,20 @@
               }
               this.$router.push('/home')
             }).catch(function () {
-              this.$notie.alert('error', 'Fehler beim Einloggen.')
+              notie.alert('error', 'Fehler beim Einloggen.')
             })
         } else {
-          this.$notie.alert('error', 'Fehler beim Einloggen.')
+          notie.alert('error', 'Fehler beim Einloggen.')
         }
       }
     }
   }
 </script>
 
-<style>
-  .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
+<style scoped>
+
+  .container {
+    text-align: center;
   }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
+
 </style>
