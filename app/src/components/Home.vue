@@ -11,6 +11,8 @@
 
       <Balance/>
 
+      <Transfer/>
+
       <el-row>
         <el-col :span="6">
           <el-tag size="small" type="warning">
@@ -41,13 +43,15 @@
   import ElCol from 'element-ui/packages/col/src/col'
   import Balance from './Balance.vue'
   import Mission from './Mission.vue'
+  import Transfer from './Transfer.vue'
 
   export default {
     components: {
       ElCol,
       ElRow,
       Balance,
-      Mission
+      Mission,
+      Transfer
     },
     data () {
       return {
