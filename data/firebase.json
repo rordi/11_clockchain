@@ -21,52 +21,42 @@
   },
   "appState": {
     "contract": "ethcotractwalletaddress",
-    "missions": {
-      "open": [
-        {
-          "id": 3,
-          "status": "open",
-          "supplierId": 1,
-          "consumerId": null,
-          "title": "Gartenarbeit",
-          "description": "Ich bin gelernter Gärtner und helfe am Wochenende in privaten Haushalten aus.",
-          "estimated": "2:00",
-          "tags": [
-            "Rasenmähen",
-            "Hecken schneiden",
-            "Unkraut entfernen"
-          ]
-        },
-        {
-          "id": 2,
-          "status": "open",
-          "supplierId": 2,
-          "consumerId": null,
-          "title": "Kochen",
-          "description": "Leidenschaftlicher Koch sucht Gourmet-Mund zum verköstigen.",
-          "estimated": "1:00",
-          "tags": [
-            "leckeres Essen",
-            "#IchBinEinGourmet"
-          ]
-        }
-      ],
-      "booked": [
-      ],
-      "accepted": [
-      ],
-      "claimed": [
-      ],
-      "past": [
-        {
-          "id": 1,
-          "status": "past",
-          "supplierId": 2,
-          "consumerId": 1,
-          "description": "Gartenarbeit",
-          "estimated": "2:00"
-        }
-      ]
-    }
+    "missions": [
+      {
+        "id": 3,
+        "status": "open",
+        "supplierId": 1,
+        "consumerId": null,
+        "title": "Gartenarbeit",
+        "description": "Ich bin gelernter Gärtner und helfe am Wochenende in privaten Haushalten aus.",
+        "estimated": "2:00",
+        "tags": [
+          "Rasenmähen",
+          "Hecken schneiden",
+          "Unkraut entfernen"
+        ]
+      },
+      {
+        "id": 2,
+        "status": "open",
+        "supplierId": 2,
+        "consumerId": null,
+        "title": "Kochen",
+        "description": "Leidenschaftlicher Koch sucht Gourmet-Mund zum verköstigen.",
+        "estimated": "1:00",
+        "tags": [
+          "leckeres Essen",
+          "#IchBinEinGourmet"
+        ]
+      },
+      {
+        "id": 1,
+        "status": "past",
+        "supplierId": 2,
+        "consumerId": 1,
+        "description": "Gartenarbeit",
+        "estimated": "2:00"
+      }
+    ]
   }
 }

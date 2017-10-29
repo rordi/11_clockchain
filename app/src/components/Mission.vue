@@ -10,11 +10,34 @@
         </div>
       </el-col>
       <el-col :span="6">
+        <!-- consumer books a mission-->
         <span v-if="mission.status && mission.status === 'open'">
           <el-button type="success" size="small" class="book">
             Buchen
           </el-button>
         </span>
+
+        <!-- supplier confirms a booked mission-->
+        <span v-if="mission.status && mission.status === 'booked'">
+          <el-button type="success" size="small" class="book">
+            Bestätigen
+          </el-button>
+        </span>
+
+        <!-- supplier claims a confirmed mission-->
+        <span v-if="mission.status && mission.status === 'accepted'">
+          <el-button type="success" size="small" class="book">
+            Gutschrift anfragen
+          </el-button>
+        </span>
+
+        <!-- consumer confirms claimed mission-->
+        <span v-if="mission.status && mission.status === 'accepted'">
+          <el-button type="success" size="small" class="book">
+            Gutschrift bestätigen
+          </el-button>
+        </span>
+
       </el-col>
     </el-row>
     <el-row>

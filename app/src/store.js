@@ -23,7 +23,9 @@ let initalState = {
   // all users
   users: {},
   // app state data
-  appState: {},
+  appState: {
+    missions: []
+  },
   // get in progress
   loading: false,
   // post/put/delete in progress
@@ -45,90 +47,58 @@ export const store = new Vuex.Store({
     users: state => state.users,
 
     openMissions (state) {
-      let open = []
-      if (state.appState.missions) {
-        open = state.appState.missions.open.filter(function (mission) {
-          return mission.supplierId !== state.user.id
-        })
-      }
-      return open
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'open' && mission.supplierId !== state.user.id
+      })
     },
 
     // consumer view (missions I booked)
     bookedMissions (state) {
-      let booked = []
-      if (state.appState.missions) {
-        booked = state.appState.missions.booked.filter(function (mission) {
-          return mission.consumerId === state.user.id
-        })
-      }
-      return booked
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'booked' && mission.consumerId === state.user.id
+      })
     },
 
     // supplier view (missions I offer that were booked)
     pendingAcceptanceMissions (state) {
-      let pending = []
-      if (state.appState.missions) {
-        pending = state.appState.missions.booked.filter(function (mission) {
-          return mission.supplierId === state.user.id
-        })
-      }
-      return pending
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'booked' && mission.supplierId === state.user.id
+      })
     },
 
     // supplier view (missions I offer that I accpeted)
     acceptedMissions (state) {
-      let accepted = []
-      if (state.appState.missions) {
-        accepted = state.appState.missions.accepted.filter(function (mission) {
-          return mission.supplierId === state.user.id
-        })
-      }
-      return accepted
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'accepted' && mission.supplierId === state.user.id
+      })
     },
 
     // consumer view (missions I booked that werde confirmed)
     confirmedMissions (state) {
-      let confirmed = []
-      if (state.appState.missions) {
-        confirmed = state.appState.missions.accepted.filter(function (mission) {
-          return mission.consumerId === state.user.id
-        })
-      }
-      return confirmed
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'accepted' && mission.consumerId === state.user.id
+      })
     },
 
     // supplier view (missions I offered and I claimed)
     claimedMissions (state) {
-      let claimed = []
-      if (state.appState.missions) {
-        claimed = state.appState.missions.claimed.filter(function (mission) {
-          return mission.supplierId === state.user.id
-        })
-      }
-      return claimed
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'claimed' && mission.supplierId === state.user.id
+      })
     },
 
     // consumer view (missions I booked and are pending my claim confirmation)
     pendingClaimConfirmationMissions (state) {
-      let pending = []
-      if (state.appState.missions) {
-        pending = state.appState.missions.claimed.filter(function (mission) {
-          return mission.consumerId === state.user.id
-        })
-      }
-      return pending
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'claimed' && mission.consumerId === state.user.id
+      })
     },
 
-    // supplier view (missions I offer that I accpeted)
+    // supplier view (missions I offer that I accepeted)
     pastMissions (state) {
-      let past = []
-      if (state.appState.missions) {
-        past = state.appState.missions.past.filter(function (mission) {
-          return mission.supplierId === state.user.id || mission.consumerId === state.user.id
-        })
-      }
-      return past
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'past' && (mission.supplierId === state.user.id || mission.consumerId === state.user.id)
+      })
     },
 
     authenticated (state) {
