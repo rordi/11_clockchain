@@ -2,7 +2,7 @@
   <div class="transfer" v-loading="isBusy">
     <el-button @click="transfer" type="success">Transfer</el-button>
     <div>{{ msg }}</div>
-    <div>{{ details }}</div>
+    <div class="error">{{ details }}</div>
   </div>
 </template>
 
@@ -60,5 +60,9 @@ export default {
   margin-bottom: 1rem;
   background-color: #eaeaea;
   text-align: center;
+}
+
+.error {
+  color: red;
 }
 </style>
