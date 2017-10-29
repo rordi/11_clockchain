@@ -1,64 +1,143 @@
 // State management implementing the Flux pattern and using Vuex
 import Vue from 'vue'
-import Vuex from 'vuex'
 import router from './router'
-// import Service from 'api/Service'
-import Service from './api/Mock'
+import Vuex from 'vuex'
+import { firebaseAction, firebaseMutations } from 'vuexfire'
+import Firebase from 'firebase'
+// import Service from './api/Mock'
 
 Vue.use(Vuex)
 
-export const store = new Vuex.Store({
+// init firebyse config
+let config = {
+  apiKey: 'AIzaSyCTLr6Tz0uTZdFhlI8wZ3qE6NShhpaieo4',
+  authDomain: 'clockchain-8e2bb.firebaseapp.com',
+  databaseURL: 'https://clockchain-8e2bb.firebaseio.com',
+  projectId: 'clockchain-8e2bb',
+  storageBucket: 'clockchain-8e2bb.appspot.com',
+  messagingSenderId: '199252938014'
+}
+let app = Firebase.initializeApp(config)
+let intdb = app.database()
+export const db = intdb
 
-  state: {
+export const setAppStateRef = firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }, { ref }) => {
+  bindFirebaseRef('appState', ref)
+  unbindFirebaseRef('appState')
+})
 
-    // the JWT token
-    token: null,
+export const setUsersRef = firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }, { ref }) => {
+  bindFirebaseRef('users', ref)
+  unbindFirebaseRef('users')
+})
 
-    // the authenticated user
-    user: null,
-
-    // app state data
-    appData: {
-    },
-
-    // get in progress
-    loading: false,
-
-    // post/put/delete in progress
-    submitting: false,
-
-    // collect errors
-    errors: []
-
+let initalState = {
+  // the authenticated user
+  user: null,
+  // all users
+  users: {},
+  // app state data
+  appState: {
+    missions: []
   },
+  // get in progress
+  loading: false,
+  // post/put/delete in progress
+  submitting: false,
+  // collect errors
+  errors: []
+}
+
+export const store = new Vuex.Store({
+  strict: true,
+  state: initalState,
 
   getters: {
 
-    authenticated (state) {
-      return (state.user && state.user !== null)
+    appState: state => state.appState,
+
+    user: state => state.user,
+
+    users: state => state.users,
+
+    openMissions (state) {
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'open' && mission.supplierId !== state.user.id
+      })
     },
 
-    token (state) {
-      return state.token
+    // consumer view (missions I booked)
+    bookedMissions (state) {
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'booked' && mission.supplierId !== state.user.id
+      })
+    },
+
+    // supplier view (missions I offer that were booked)
+    pendingAcceptanceMissions (state) {
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'booked' && mission.supplierId === state.user.id
+      })
+    },
+
+    // supplier view (missions I offer that I accpeted)
+    acceptedMissions (state) {
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'accepted' && mission.supplierId === state.user.id
+      })
+    },
+
+    // consumer view (missions I booked that were confirmed)
+    confirmedMissions (state) {
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'accepted' && mission.supplierId !== state.user.id
+      })
+    },
+
+    // supplier view (missions I offered and I claimed)
+    claimedMissions (state) {
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'claimed' && mission.supplierId === state.user.id
+      })
+    },
+
+    // consumer view (missions I booked and are pending my claim confirmation)
+    pendingClaimConfirmationMissions (state) {
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'claimed' && mission.consumerId === state.user.id
+      })
+    },
+
+    // supplier view (missions I offer that I accepeted)
+    pastMissions (state) {
+      return state.appState.missions.filter(function (mission) {
+        return mission.status === 'past' && (mission.supplierId === state.user.id || mission.consumerId === state.user.id)
+      })
+    },
+
+    authenticated (state) {
+      return (state.user && state.user !== null && state.user !== {})
     },
 
     firstname (state) {
-      return state.user ? state.user.firstname : null
+      return state.user ? state.user.firstname : ''
     },
 
     lastname (state) {
-      return state.user ? state.user.lastname : null
+      return state.user ? state.user.lastname : ''
     }
   },
 
   mutations: {
 
+    ...firebaseMutations,
+
     SET_USER (state, user) {
       state.user = user
     },
 
-    SET_APP_DATA (state, appData) {
-      state.appData = appData
+    SET_APP_STATE (state, appState) {
+      state.appState = appState
     },
 
     START_REQUEST (state, load) {
@@ -81,69 +160,60 @@ export const store = new Vuex.Store({
       state.user.lastname = names.lastname
     },
 
-    SET_TOKEN (state, token) {
-      state.token = token
-      try {
-        if ('localStorage' in window && window['localStorage'] !== null) {
-          // Store token in local storage of browser
-          localStorage.setItem('token', token)
-        }
-      } catch (e) {
-        Vue.log.error('localStorage not available', e)
-      }
-    },
-
     LOGOUT_USER (state) {
-      store.replaceState({
-        token: null,
-        user: null,
-        loading: null,
-        errors: null,
-        appData: {
-        }
-      })
-      localStorage.setItem('token', '')
-      router.push({ name: 'Login', params: { logout: true } })
+      store.replaceState(initalState)
+      router.push('/login')
     },
 
     FORCED_LOGOUT (state) {
-      store.replaceState({
-        token: null,
-        user: null,
-        loading: null,
-        errors: null,
-        appData: {
-        }
-      })
-      localStorage.setItem('token', '')
-      router.push({ name: 'Login', params: { error: true } })
+      store.replaceState(initalState)
+      router.push('/login')
     }
   },
 
   actions: {
 
+    setAppStateRef: firebaseAction(({
+      bindFirebaseRef
+    }, ref) => {
+      bindFirebaseRef('appState', ref)
+    }),
+
+    setUsersRef: firebaseAction(({
+      bindFirebaseRef
+    }, ref) => {
+      bindFirebaseRef('users', ref)
+    }),
+
     login ({ commit, state }, { username, password }) {
       return new Promise((resolve, reject) => {
-        if (!username && state.token && state.user) {
+        if (!username && state.user && username === state.user.email) {
           resolve(state.user)
           return
         }
         commit('START_REQUEST')
-
-        Service.login(username, password, result => {
-          commit('SET_USER', result.user)
-          commit('SET_APP_DATA', {
-            // to be defined
-          })
-          commit('SET_TOKEN', result.token)
-
+        if (username === 'consumer@test.ch' && password) {
+          commit('SET_USER', state.users.consumer)
           commit('END_REQUEST')
-          resolve(result.user)
-        },
-        err => {
-          commit('END_REQUEST', [err])
-          reject(err)
-        })
+          resolve(state.users.consumer)
+        } else if (username === 'supplier@test.ch' && password) {
+          commit('SET_USER', state.users.supplier)
+          commit('END_REQUEST')
+          resolve(state.users.supplier)
+        }
+        commit('END_REQUEST')
+      })
+    },
+
+    statusChange ({ commit, state }, { mission, status }) {
+      return new Promise((resolve, reject) => {
+        commit('START_REQUEST')
+        let id = mission.id
+        let key = (id - 1)
+        state.appState.missions[key].status = status
+        db.ref('appState').push()
+        commit('END_REQUEST')
+        resolve()
       })
     },
 

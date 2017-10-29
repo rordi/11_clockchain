@@ -14,10 +14,10 @@ export default {
       if (Math.random() > successRate) {
         errorCallback(new Error('api failed.'))
       } else {
-        if (response.success) {
-          callback(response.data)
+        if (response.user) {
+          callback(response)
         } else {
-          errorCallback(new Error(response.message))
+          errorCallback(new Error('login failed.'))
         }
       }
     }, timeout)

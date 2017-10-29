@@ -15,12 +15,28 @@
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+  @import '../node_modules/notie/dist/notie.min.css';
+
+  * {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #app {
+    font-size: 1.2em;
+    color: #2c3e50;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .container {
+    margin-top: 50px;
+  }
+
+  .el-row {
+    margin: 1em 0;
+  }
+
 </style>

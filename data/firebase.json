@@ -1,0 +1,49 @@
+{
+  "users": {
+    "supplier": {
+      "id": 1,
+      "firstname": "Max",
+      "lastname": "Frisch",
+      "email": "supplier@test.ch",
+      "wallet": "supplierethwalletaddress",
+      "transferto": "binarycalltransfertosuplier",
+      "balanceUrl": "https://rinkeby.etherscan.io/api?action=eth_call&data=0x70a0823100000000000000000000000042c5F1D3Eb4192AF3D4ad27eE5a15f8e835ab79D&module=proxy&to=0x9946AC2aCc28Ca76ef26c85112a114C530211c42&apikey=9KWJ8VHX6I9Y72C91B8W2EG3ZGB6H7SDN1"
+    },
+    "consumer": {
+      "id": 2,
+      "firstname": "Wilhelm",
+      "lastname": "Busch",
+      "email": "consumer@test.ch",
+      "wallet": "consumerethwalletaddress",
+      "transferto": "binarycalltransfertoconsumer",
+      "balanceUrl": "https://rinkeby.etherscan.io/api?action=eth_call&data=0x70a0823100000000000000000000000020749911477918efb7549d6621eb957d8afa137c&module=proxy&to=0x9946AC2aCc28Ca76ef26c85112a114C530211c42&apikey=9KWJ8VHX6I9Y72C91B8W2EG3ZGB6H7SDN1"
+    }
+  },
+  "appState": {
+    "contract": "ethcotractwalletaddress",
+    "missions": [
+      {
+        "id": 1,
+        "status": "open",
+        "supplierId": 1,
+        "consumerId": null,
+        "title": "Gartenarbeit",
+        "description": "Ich bin gelernter Gärtner und helfe am Wochenende in privaten Haushalten aus.",
+        "estimated": "2:00",
+        "tags": [
+          "Rasenmähen",
+          "Hecken schneiden",
+          "Unkraut entfernen"
+        ]
+      },
+      {
+        "id": 2,
+        "status": "past",
+        "supplierId": 1,
+        "consumerId": 2,
+        "description": "Gartenarbeit",
+        "estimated": "2:00"
+      }
+    ]
+  }
+}
