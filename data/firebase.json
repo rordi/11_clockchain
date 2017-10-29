@@ -5,18 +5,20 @@
       "firstname": "Max",
       "lastname": "Frisch",
       "email": "supplier@test.ch",
-      "etherbase": "123abc"
+      "wallet": "supplierethwalletaddress",
+      "transferto": "binarycalltransfertosuplier"
     },
     "consumer": {
       "id": 2,
       "firstname": "Wilhelm",
       "lastname": "Busch",
       "email": "consumer@test.ch",
-      "etherbase": "456def"
+      "wallet": "consumerethwalletaddress",
+      "transferto": "binarycalltransfertoconsumer"
     }
   },
   "appState": {
-    "contract": "123456abcdef",
+    "contract": "ethcotractwalletaddress",
     "missions": {
       "open": [
         {
@@ -33,6 +35,8 @@
           "description": "Kochen",
           "estimated": "1:30"
         }
+      ],
+      "claimed": [
       ],
       "past": [
         {
