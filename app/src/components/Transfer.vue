@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="transfer" type="success" v-loading="isBusy">Gutschrift bestätigen</el-button>
+  <el-button @click="transfer" type="success" size="small" v-loading="isBusy">Gutschrift bestätigen</el-button>
 </template>
 
 <script>

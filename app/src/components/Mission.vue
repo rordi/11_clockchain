@@ -2,7 +2,7 @@
   <div class="mission">
     <el-row>
       <el-col :span="18">
-        <h4>{{ mission.title}}</h4>
+        <h4 class="title">{{ mission.title}}</h4>
         <div style="clear: both">
           <small>
             {{ mission.description }}
@@ -33,7 +33,7 @@
 
         <!-- consumer confirms claimed mission-->
         <span v-if="mission.status && mission.status === 'accepted'">
-          <Transfer/>
+          <Transfer class="book" />
         </span>
 
       </el-col>
@@ -105,11 +105,11 @@ export default {
     border: 1px solid #e5e5e5;
     background: #fbfbfb;
     border-radius: 6px;
+  }
 
   h4 {
     margin-top: 0;
     float: left;
-  }
   }
 
   .book {

@@ -22,50 +22,59 @@
         </el-col>
       </el-row>
 
-
-      <div class="marketplace">
+      <div class="marketplace section">
         <h1>Marktplatz</h1>
         <div v-for="mission in openMissions">
           <Mission v-bind:mission="mission"/>
         </div>
-        <div v-if="!openMissions || openMissions.length === 0">
+        <div v-if="openMissions.length === 0">
           <em>Es sind im Moment keine Anfragen offen.</em>
         </div>
       </div>
 
       <hr/>
 
-      <div class="marketplace">
+      <div class="marketplace section">
+        <h1>Meine Einsätze</h1>
+        <div v-if="!hasMissions">
+          <em>Du hast noch keine Einsätze.</em>
+        </div>
+      </div>
+
+      <div class="marketplace" v-if="bookedMissions.length > 0">
         <h4>Provisorisch gebuchte Leistungen</h4>
         <div v-for="mission in bookedMissions">
           <Mission v-bind:mission="mission"/>
         </div>
       </div>
 
-      <div class="marketplace">
+      <div class="marketplace" v-if="confirmedMissions.length > 0">
         <h4>Gebuchte Leistungen</h4>
         <div v-for="mission in confirmedMissions">
           <Mission v-bind:mission="mission"/>
         </div>
       </div>
 
-      <hr/>
-
-      <div class="marketplace">
+      <div class="marketplace" v-if="pendingAcceptanceMissions.length > 0">
         <h4>Zu bestätigende Einsätze</h4>
         <div v-for="mission in pendingAcceptanceMissions">
           <Mission v-bind:mission="mission"/>
         </div>
       </div>
 
-      <div class="marketplace">
+      <div class="marketplace" v-if="acceptedMissions.length > 0">
         <h4>Bestätigte Einsätze</h4>
         <div v-for="mission in acceptedMissions">
           <Mission v-bind:mission="mission"/>
         </div>
       </div>
 
-      <hr/>
+      <div class="marketplace" v-if="pastMissions.length > 0">
+        <h4>Vergangene Einsätze</h4>
+        <div v-for="mission in pastMissions">
+          <Mission v-bind:mission="mission"/>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -117,6 +126,19 @@
       },
       pastMissions: function () {
         return this.$store.getters.pastMissions
+      },
+      hasMissions: function () {
+        let counts = [
+          this.bookedMissions.length,
+          this.pendingAcceptanceMissions.length,
+          this.acceptedMissions.length,
+          this.confirmedMissions.length,
+          this.claimedMissions.length,
+          this.pendingClaimConfirmationMissions.length,
+          this.pastMissions.length
+        ]
+        let sum = counts.reduce((a, b) => { return a + b })
+        return sum > 0
       }
     },
     created () {
@@ -144,7 +166,13 @@
 
   h1 {
     font-size: 1.3em;
-    margin-top: 0;
+    margin: 0 0 1em 0;
+    padding-top: 0;
+  }
+
+  h4 {
+    font-size: 0.8em;
+    margin: 0 0 0.8em 0;
     padding-top: 0;
   }
 
@@ -155,7 +183,12 @@
   }
 
   .marketplace {
-    margin-top: 3em;
+    margin-top: 1em;
+  }
+
+  .section {
+    margin: 2em 0;
+
   }
 
 </style>

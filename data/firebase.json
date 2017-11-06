@@ -5,7 +5,7 @@
       "firstname": "Max",
       "lastname": "Frisch",
       "email": "supplier@test.ch",
-      "wallet": "supplierethwalletaddress",
+      "wallet": "0xAd9b1FEFC98Ee16934DB03297B351FeF2ddb3866",
       "transferto": "binarycalltransfertosuplier",
       "balanceUrl": "https://rinkeby.etherscan.io/api?action=eth_call&data=0x70a0823100000000000000000000000042c5F1D3Eb4192AF3D4ad27eE5a15f8e835ab79D&module=proxy&to=0x9946AC2aCc28Ca76ef26c85112a114C530211c42&apikey=9KWJ8VHX6I9Y72C91B8W2EG3ZGB6H7SDN1"
     },
@@ -14,13 +14,13 @@
       "firstname": "Wilhelm",
       "lastname": "Busch",
       "email": "consumer@test.ch",
-      "wallet": "consumerethwalletaddress",
+      "wallet": "0xAd9b1FEFC98Ee16934DB03297B351FeF2ddb3866",
       "transferto": "binarycalltransfertoconsumer",
       "balanceUrl": "https://rinkeby.etherscan.io/api?action=eth_call&data=0x70a0823100000000000000000000000020749911477918efb7549d6621eb957d8afa137c&module=proxy&to=0x9946AC2aCc28Ca76ef26c85112a114C530211c42&apikey=9KWJ8VHX6I9Y72C91B8W2EG3ZGB6H7SDN1"
     }
   },
   "appState": {
-    "contract": "ethcotractwalletaddress",
+    "contract": "0xAd9b1FEFC98Ee16934DB03297B351FeF2ddb3866",
     "missions": [
       {
         "id": 1,
@@ -41,8 +41,15 @@
         "status": "past",
         "supplierId": 1,
         "consumerId": 2,
-        "description": "Gartenarbeit",
-        "estimated": "2:00"
+        "title": "Hausarbeit",
+        "description": "Wäsche waschen, Bügeln, etc. langweilen dich? Ich erledige diese Arbeiten für dich!",
+        "estimated": "1:30",
+        "tags": [
+          "Wäsche",
+          "Waschen",
+          "Bügeln",
+          "Putzen"
+        ]
       }
     ]
   }
