@@ -24,8 +24,8 @@
 
       <div class="marketplace section">
         <h1>Marktplatz</h1>
-        <div v-for="mission in openMissions">
-          <Mission v-bind:mission="mission"/>
+        <div v-for="mission in openMissions" :key="mission.id">
+          <Mission :mission="mission" context="open"/>
         </div>
         <div v-if="openMissions.length === 0">
           <em>Es sind im Moment keine Anfragen offen.</em>
@@ -43,36 +43,43 @@
 
       <div class="marketplace" v-if="bookedMissions.length > 0">
         <h4>Provisorisch gebuchte Leistungen</h4>
-        <div v-for="mission in bookedMissions">
-          <Mission v-bind:mission="mission"/>
+        <div v-for="mission in bookedMissions" :key="mission.id">
+          <Mission :mission="mission" context="booked" />
         </div>
       </div>
 
       <div class="marketplace" v-if="confirmedMissions.length > 0">
         <h4>Gebuchte Leistungen</h4>
-        <div v-for="mission in confirmedMissions">
-          <Mission v-bind:mission="mission"/>
+        <div v-for="mission in confirmedMissions" :key="mission.id">
+          <Mission :mission="mission" context="confirmed" />
         </div>
       </div>
 
       <div class="marketplace" v-if="pendingAcceptanceMissions.length > 0">
         <h4>Zu bestätigende Einsätze</h4>
-        <div v-for="mission in pendingAcceptanceMissions">
-          <Mission v-bind:mission="mission"/>
+        <div v-for="mission in pendingAcceptanceMissions" :key="mission.id">
+          <Mission :mission="mission" context="acceptance" />
         </div>
       </div>
 
       <div class="marketplace" v-if="acceptedMissions.length > 0">
         <h4>Bestätigte Einsätze</h4>
-        <div v-for="mission in acceptedMissions">
-          <Mission v-bind:mission="mission"/>
+        <div v-for="mission in acceptedMissions" :key="mission.id">
+          <Mission :mission="mission" context="claimable" />
+        </div>
+      </div>
+
+      <div class="marketplace" v-if="pendingClaimConfirmationMissions.length > 0">
+        <h4>Anfragen Zeitgutschrift</h4>
+        <div v-for="mission in pendingClaimConfirmationMissions" :key="mission.id">
+          <Mission :mission="mission" context="claimed" />
         </div>
       </div>
 
       <div class="marketplace" v-if="pastMissions.length > 0">
         <h4>Vergangene Einsätze</h4>
-        <div v-for="mission in pastMissions">
-          <Mission v-bind:mission="mission"/>
+        <div v-for="mission in pastMissions" :key="mission.id">
+          <Mission :mission="mission" context="past" />
         </div>
       </div>
 
@@ -85,20 +92,21 @@
   import ElCol from 'element-ui/packages/col/src/col'
   import Balance from './Balance.vue'
   import Mission from './Mission.vue'
-  import Transfer from './Transfer.vue'
 
   export default {
+    name: 'Home',
     components: {
       ElCol,
       ElRow,
       Balance,
-      Mission,
-      Transfer
+      Mission
     },
+
     data () {
       return {
       }
     },
+
     computed: {
       user: function () {
         return this.$store.getters.user
@@ -142,6 +150,7 @@
       }
     },
     created () {
+      this.$store.dispatch('setAppStateRef', this.$db.ref('appState'))
     },
     methods: {
       logout (event) {

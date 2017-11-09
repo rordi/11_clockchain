@@ -12,7 +12,6 @@
 import Vuex from 'vuex'
 
 export default {
-
   name: 'Balance',
 
   methods: {
@@ -30,7 +29,7 @@ export default {
 
   created () {
     this.refresh()
-    setInterval(this.refresh, 5000)
+    setInterval(this.refresh, 10000)
   },
 
   destroyed () {
@@ -49,31 +48,32 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.balance {
-  background-color: #eaeaea;
-  padding: 0.25rem 1rem;
-  border-radius: 4px;
-}
 
-.balance__label {
-  text-transform: uppercase;
-  font-size: 0.7rem;
-}
+  .balance {
+    background-color: #eaeaea;
+    padding: 0.25rem 1rem;
+    border-radius: 4px;
+  }
 
-.balance__wrapper {
-  text-align: center;
-}
+  .balance__label {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
 
-.balance__value {
-  font-size: 3rem;
-  font-weight: bold;
-}
-.balance__unit {
-  text-align: center;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  vertical-align: top;
-  line-height: 0;
-  line-height: 3rem;
-}
+  .balance__wrapper {
+    text-align: center;
+  }
+
+  .balance__value {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  .balance__unit {
+    text-align: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    vertical-align: top;
+    line-height: 3rem;
+  }
+
 </style>

@@ -11,36 +11,36 @@
       </el-col>
       <el-col :span="6">
         <!-- consumer books a mission-->
-        <span v-if="mission.status && mission.status === 'open'" @click="bookMission">
+        <span v-if="context === 'open'" @click="bookMission">
           <el-button type="success" size="small" class="book">
             provisorisch Buchen
           </el-button>
         </span>
 
         <!-- supplier confirms a booked mission-->
-        <span v-if="mission.status && mission.status === 'booked'" @click="acceptMission">
+        <span v-if="context === 'acceptance'" @click="acceptMission">
           <el-button type="success" size="small" class="book">
             Bestätigen
           </el-button>
         </span>
 
         <!-- supplier claims a confirmed mission-->
-        <!--<span v-if="mission.status && mission.status === 'accepted'" @click="claimMission">-->
-          <!--<el-button type="success" size="small" class="book">-->
-            <!--Gutschrift anfragen-->
-          <!--</el-button>-->
-        <!--</span>-->
+        <span v-if="context === 'claimable'" @click="claimMission">
+          <el-button type="success" size="small" class="book">
+            Gutschrift anfragen
+          </el-button>
+        </span>
 
         <!-- consumer confirms claimed mission-->
-        <span v-if="mission.status && mission.status === 'accepted'">
-          <Transfer class="book" />
+        <span v-if="context === 'claimed'">
+          <Transfer :mission="mission" class="book" />
         </span>
 
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-tag v-for="tag in mission.tags" size="mini" class="tag">{{ tag }}</el-tag>
+        <el-tag v-for="tag in mission.tags" :key="tag" size="mini" class="tag">{{ tag }}</el-tag>
       </el-col>
     </el-row>
   </div>
@@ -52,22 +52,23 @@ import ElCol from 'element-ui/packages/col/src/col'
 import Transfer from './Transfer'
 
 export default {
-  name: 'Mission',
-  props: ['mission'],
+  name: 'Home',
+  props: ['mission', 'context'],
   components: {
     ElCol,
     ElRow,
     Transfer
   },
+
   data () {
     return {
-      mission: {}
     }
   },
+
   methods: {
     bookMission: function () {
       let notie = this.$notie
-      this.$store.dispatch('statusChange', { mission: this.mission, status: 'booked' })
+      this.$store.dispatch('bookMission', { mission: this.mission, status: 'booked' })
         .then((res) => {
           notie.alert('success', 'Einsatz provisorisch gebucht.')
         }).catch(function () {

@@ -22,7 +22,7 @@
     </el-row>
     <el-row>
       <el-col>
-        <el-button type="primary" icon="el-icon-check" v-on:click="login">
+        <el-button type="primary" icon="el-icon-check" v-loading="isBusy" v-on:click="login">
           Login
         </el-button>
       </el-col>
@@ -35,7 +35,9 @@
   import Vuex from 'vuex'
 
   export default {
+    name: 'Login',
     props: ['redirect', 'error', 'logout'],
+
     data () {
       return {
         options: [{
@@ -46,22 +48,29 @@
           label: 'consumer@test.ch '
         }],
         username: '',
-        password: ''
+        password: '',
+        isBusy: false
       }
     },
+
     computed: Vuex.mapState(['users']),
+
     created () {
       this.$store.dispatch('setUsersRef', this.$db.ref('users'))
     },
+
     logo () {
       return require('../assets/logo.png')
     },
+
     methods: {
       login (event) {
         let notie = this.$notie
+        this.isBusy = true
         if (this.username !== '' && this.password !== '') {
           this.$store.dispatch('login', { username: this.username, password: this.password })
             .then((user) => {
+              this.isBusy = false
               if (user) {
                 this.$store.dispatch('setAppStateRef', this.$db.ref('appState'))
               }
@@ -70,6 +79,7 @@
               }
               this.$router.push('/home')
             }).catch(function () {
+              this.isBusy = false
               notie.alert('error', 'Fehler beim Einloggen.')
             })
         } else {

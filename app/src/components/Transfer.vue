@@ -4,9 +4,10 @@
 
 <script>
 import Vuex from 'vuex'
-export default {
 
+export default {
   name: 'Transfer',
+  props: ['mission'],
 
   data () {
     return {
@@ -33,10 +34,12 @@ export default {
             return
           }
           this.$notie.alert('success', 'Zeitgutschrift erfolgreich.')
+          // update mission status to 'past'
+          this.$store.dispatch('statusChange', { mission: this.mission, status: 'past' })
         })
         .catch(response => {
           console.error(response)
-          this.msg = 'There was an error!'
+          this.$notie.alert('error', 'Fehler beim Auslösen der Zeitgutschrift.')
         })
         .then(() => {
           this.isBusy = false
